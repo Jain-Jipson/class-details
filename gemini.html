@@ -68,7 +68,7 @@
   <script>
     $(document).ready(function() {
       // Google Sheets API client ID and scopes
-      const CLIENT_ID = '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'; // Replace with your actual client ID
+      const CLIENT_ID = '343673447773-os3mu6oc777eh0548se2litvi71hl3s2.apps.googleusercontent.com'; // Replace with your actual client ID
       const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 
       // Function to load existing classes from Google Sheet
@@ -78,7 +78,7 @@
         const sheetName = 'ClassDetails'; // Adjust sheet name if needed
 
         // Build the request URL
-        const url = `https://sheets.googleapis.com/v4/spreadsheets/1kIfGmABjh_cJxTSkCGr4R6QFTG-apJ2FAt0QARVjB5c/values/ClassDetails?key=AIzaSyC_LoPx2v5_3rWxakCtx4uEoadVIxlxrb4`;
+        const url = `https://sheets.googleapis.com/v4/spreadsheets/1kIfGmABjh_cJxTSkCGr4R6QFTG-apJ2FAt0QARVjB5c`;
 
         $.ajax({
           url: url,
@@ -118,37 +118,38 @@
 
       // Function to add a new class to Google Sheet
       function addClass(data) {
-  const spreadsheetId = '1kIfGmABjh_cJxTSkCGr4R6QFTG-apJ2FAt0QARVjB5c'; 
-  const sheetName = 'ClassDetails';
+        // Replace with your actual spreadsheet ID and sheet name
+        const spreadsheetId = '1kIfGmABjh_cJxTSkCGr4R6QFTG-apJ2FAt0QARVjB5c';
+        const sheetName = 'ClassDetails';
 
-  const url = `https://sheets.googleapis.com/v4/spreadsheets/1kIfGmABjh_cJxTSkCGr4R6QFTG-apJ2FAt0QARVjB5c/values/ClassDetails:append?valueInputOption=RAW`;
+        const url = `https://sheets.googleapis.com/v4/spreadsheets/1kIfGmABjh_cJxTSkCGr4R6QFTG-apJ2FAt0QARVjB5c/values/ClassDetails:append?valueInputOption=RAW`;
 
-  $.ajax({
-    url: url,
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${accessToken}`,
-      'Content-Type': 'application/json'
-    },
-    data: JSON.stringify({
-      values: [ 
-        [ 
-          'New Class', // Replace with actual data
-          'A', 
-          'Teacher Name', 
-          '30', 
-          'Room 101' 
-        ] 
-      ]
-    }),
-    success: function() {
-      console.log('Class added successfully!'); 
-    },
-    error: function(xhr, status, error) {
-      console.error('Error adding class:', error, xhr.responseText); 
-    }
-  });
-}
+        $.ajax({
+          url: url,
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+          },
+          data: JSON.stringify({
+            values: [ 
+              [ 
+                'New Class', // Replace with actual data
+                'A', 
+                'Teacher Name', 
+                '30', 
+                'Room 101' 
+              ] 
+            ]
+          }),
+          success: function() {
+            console.log('Class added successfully!'); 
+          },
+          error: function(xhr, status, error) {
+            console.error('Error adding class:', error, xhr.responseText); 
+          }
+        });
+      }
 
       // Handle button clicks
       $('#add-class-btn').click(function() {
@@ -184,7 +185,7 @@
 
       if (!accessToken) {
         // If no access token, redirect to OAuth 2.0 consent screen
-        window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=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&redirect_uri=YOUR_REDIRECT_URI&scope=${SCOPES.join(' ')}&response_type=code`;
+        window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=343673447773-os3mu6oc777eh0548se2litvi71hl3s2.apps.googleusercontent.com&redirect_uri=https://jain-jipson.github.io/class-details/&scope=https://www.googleapis.com/auth/spreadsheets&response_type=code`; 
       } else {
         // Load existing classes
         loadClasses();
