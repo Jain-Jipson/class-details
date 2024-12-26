@@ -214,7 +214,38 @@ form.addEventListener('submit', async (event) => {
         responseMessage.style.color = 'red';
     }
 });
+// Initialize Google API Client
+function loadGAPI() {
+    gapi.load('client:auth2', initClient);
+}
+
+function initClient() {
+    gapi.client.init({
+        clientId: 'http://343673447773-os3mu6oc777eh0548se2litvi71hl3s2.apps.googleusercontent.com/',
+        discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
+        scope: 'https://www.googleapis.com/auth/spreadsheets',
+    }).then(() => {
+        const authInstance = gapi.auth2.getAuthInstance();
+
+        // Check if user is signed in
+        if (authInstance.isSignedIn.get()) {
+            console.log('User already signed in');
+        } else {
+            // Trigger sign-in process
+            authInstance.signIn().then(() => {
+                console.log('User signed in');
+            });
+        }
+    }).catch(error => {
+        console.error('Error initializing GAPI:', error);
+    });
+}
+
+// Call the loadGAPI function after loading the script
+window.onload = loadGAPI;
 
     </script>
+    <script src="https://apis.google.com/js/api.js"></script>
+
 </body>
 </html>
