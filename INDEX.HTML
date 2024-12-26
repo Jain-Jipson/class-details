@@ -1,275 +1,201 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-
-    <title>Class Management</title>
-    <style>
-        /* Base Styles */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background: #f5f5f5;
-        }
-
-        .dashboard, .class-details, .add-class-details {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .dashboard {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .button-container {
-            display: flex;
-            gap: 10px;
-        }
-
-        .button {
-            padding: 15px 30px;
-            background: #4caf50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1.2em;
-            transition: transform 0.2s;
-        }
-
-        .button:hover {
-            transform: scale(1.1);
-        }
-
-        .form-container {
-            max-width: 600px;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-container label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        .form-container input, .form-container select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        .form-container button {
-            padding: 10px 20px;
-            background: #4caf50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .form-container button:hover {
-            background: #45a049;
-        }
-
-        .message {
-            text-align: center;
-            margin-top: 10px;
-            font-size: 1.2em;
-        }
-
-        .plus-button {
-            padding: 10px 15px;
-            font-size: 1.5em;
-            font-weight: bold;
-            background: #4caf50;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .plus-button:hover {
-            transform: scale(1.1);
-        }
-    </style>
+  <title>Class Registration</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      margin: 20px;
+    }
+  </style>
 </head>
 <body>
-    <!-- Dashboard -->
-    <div id="dashboard" class="dashboard">
-        <button class="button" onclick="showClassList()">Classes</button>
-        <button class="plus-button" onclick="showAddClassDetailsPage()">+</button>
 
+  <div class="container">
+    <h1>Class Registration</h1>
+
+    <div id="class-list">
+      <h2>Classes</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Class</th>
+            <th>Division</th>
+            <th>Teacher</th>
+            <th>Strength</th>
+            <th>Direction</th>
+          </tr>
+        </thead>
+        <tbody>
+          </tbody>
+      </table>
     </div>
 
-    <div id="cspDetails" class="details" style="display: none;">
-        <h2>Content Security Policy Details</h2>
-        <pre>
-    &lt;meta http-equiv="Content-Security-Policy" content="
-        default-src 'self';
-        script-src 'self' https://apis.google.com;
-        connect-src 'self' https://www.googleapis.com https://accounts.google.com;
-        img-src 'self' data: https://*.google.com;
-        frame-src https://accounts.google.com;">
-        </pre>
-    </div>
-    
-    <!-- Class List Page -->
-    <div id="classListPage" class="class-details">
-        <h1>Class List</h1>
-        <p>Here you can display a list of classes dynamically.</p>
-        <button class="button" onclick="showDashboard()">Back to Dashboard</button>
-    </div>
+    <button id="add-class-btn" class="btn btn-primary">+</button>
 
-    <!-- Add Class Details Page -->
-    <div id="addClassDetailsPage" class="add-class-details">
-        <h1>Add Class Details</h1>
-        <div class="form-container">
-            <form id="classForm">
-                <label for="classNumber">Class Number</label>
-                <input type="text" id="classNumber" placeholder="Enter Class Number" required>
-
-                <label for="division">Division</label>
-                <input type="text" id="division" placeholder="Enter Division" required>
-
-                <label for="classTeacher">Class Teacher</label>
-                <input type="text" id="classTeacher" placeholder="Enter Class Teacher Name" required>
-
-                <label for="strength">Strength</label>
-                <input type="number" id="strength" placeholder="Enter Strength" required>
-
-                <label for="direction">Direction</label>
-                <select id="direction" required>
-                    <option value="">Select Direction</option>
-                    <option value="North">North</option>
-                    <option value="South">South</option>
-                    <option value="East">East</option>
-                    <option value="West">West</option>
-                </select>
-
-                <button type="submit">Submit</button>
-            </form>
-            <p id="responseMessage" class="message"></p>
+    <div id="class-form" style="display: none;">
+      <h2>Add Class</h2>
+      <form id="class-form-data">
+        <div class="form-group">
+          <label for="class">Class:</label>
+          <input type="text" class="form-control" id="class" name="class" required>
         </div>
-        <button class="button" onclick="showDashboard()">Back to Dashboard</button>
+        <div class="form-group">
+          <label for="division">Division:</label>
+          <input type="text" class="form-control" id="division" name="division" required>
+        </div>
+        <div class="form-group">
+          <label for="teacher">Teacher:</label>
+          <input type="text" class="form-control" id="teacher" name="teacher" required>
+        </div>
+        <div class="form-group">
+          <label for="strength">Strength:</label>
+          <input type="number" class="form-control" id="strength" name="strength" required>
+        </div>
+        <div class="form-group">
+          <label for="direction">Direction:</label>
+          <input type="text" class="form-control" id="direction" name="direction" required>
+        </div>
+        <button type="submit" class="btn btn-success">Submit</button>
+        <button type="button" id="cancel-btn" class="btn btn-secondary">Cancel</button>
+      </form>
     </div>
 
-    <script>
-        function toggleCSPDetails() {
-    const cspDetails = document.getElementById('cspDetails');
-    if (cspDetails.style.display === 'none') {
-        cspDetails.style.display = 'block'; // Show the CSP details
-    } else {
-        cspDetails.style.display = 'none'; // Hide the CSP details
-    }
-}
+  </div>
 
-        // Navigation Functions
-        function showDashboard() {
-            document.getElementById('dashboard').style.display = 'flex';
-            document.getElementById('classListPage').style.display = 'none';
-            document.getElementById('addClassDetailsPage').style.display = 'none';
-        }
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Google Sheets API client ID and scopes
+      const CLIENT_ID = '343673447773-os3mu6oc777eh0548se2litvi71hl3s2.apps.googleusercontent.com'; // Replace with your actual client ID
+      const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 
-        function showClassList() {
-            document.getElementById('dashboard').style.display = 'none';
-            document.getElementById('classListPage').style.display = 'flex';
-        }
+      // Function to load existing classes from Google Sheet
+      function loadClasses() {
+        // Replace with your actual spreadsheet ID and sheet name
+        const spreadsheetId = '1kIfGmABjh_cJxTSkCGr4R6QFTG-apJ2FAt0QARVjB5c';
+        const sheetName = 'ClassDetails'; // Adjust sheet name if needed
 
-        function showAddClassDetailsPage() {
-            document.getElementById('dashboard').style.display = 'none';
-            document.getElementById('addClassDetailsPage').style.display = 'flex';
-        }
+        // Build the request URL
+        const url = `https://sheets.googleapis.com/v4/spreadsheets/1kIfGmABjh_cJxTSkCGr4R6QFTG-apJ2FAt0QARVjB5c';
 
-        const form = document.getElementById('classForm');
-const responseMessage = document.getElementById('responseMessage');
+        $.ajax({
+          url: url,
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${accessToken}`
+          },
+          success: function(response) {
+            const data = response.values;
+            let tableBody = '';
 
-// Your API Key and Sheet ID
-const API_KEY = 'AIzaSyC_LoPx2v5_3rWxakCtx4uEoadVIxlxrb4';
-const SHEET_ID = '1kIfGmABjh_cJxTSkCGr4R6QFTG-apJ2FAt0QARVjB5c';
+            if (data && data.length > 0) {
+              for (let i = 1; i < data.length; i++) { // Skip header row
+                const row = data[i];
+                tableBody += `
+                  <tr>
+                    <td>${row[0]}</td>
+                    <td>${row[1]}</td>
+                    <td>${row[2]}</td>
+                    <td>${row[3]}</td>
+                    <td>${row[4]}</td>
+                  </tr>
+                `;
+              }
+            } else {
+              tableBody = '<tr><td colspan="5">No data found.</td></tr>';
+            }
 
-// Sheets API URL
-const SHEETS_API_URL = `https://sheets.googleapis.com/v4/spreadsheets/1kIfGmABjh_cJxTSkCGr4R6QFTG-apJ2FAt0QARVjB5c/values/ClassDetails:append?valueInputOption=USER_ENTERED&key=AIzaSyC_LoPx2v5_3rWxakCtx4uEoadVIxlxrb4`;
-
-form.addEventListener('submit', async (event) => {
-    event.preventDefault();
-
-    const classNumber = document.getElementById('classNumber').value;
-    const division = document.getElementById('division').value;
-    const classTeacher = document.getElementById('classTeacher').value;
-    const strength = document.getElementById('strength').value;
-    const direction = document.getElementById('direction').value;
-
-    // Prepare the data to append
-    const requestBody = {
-        values: [[classNumber, division, classTeacher, strength, direction, new Date().toLocaleString()]],
-    };
-
-    try {
-        const response = await fetch(SHEETS_API_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(requestBody),
+            $('#class-list table tbody').html(tableBody);
+          },
+          error: function(xhr, status, error) {
+            console.error('Error loading classes:', error);
+            // Handle error, e.g., display an error message to the user
+          }
         });
+      }
 
-        if (response.ok) {
-            responseMessage.textContent = 'Class details added successfully!';
-            responseMessage.style.color = 'green';
-            form.reset();
-        } else {
-            const errorData = await response.json();
-            responseMessage.textContent = `Failed to add class details: ${errorData.error.message}`;
-            responseMessage.style.color = 'red';
-        }
-    } catch (error) {
-        responseMessage.textContent = `An error occurred: ${error.message}`;
-        responseMessage.style.color = 'red';
-    }
-});
-// Initialize Google API Client
-function loadGAPI() {
-    gapi.load('client:auth2', initClient);
-}
+      // Function to add a new class to Google Sheet
+      function addClass(data) {
+        // Replace with your actual spreadsheet ID and sheet name
+        const spreadsheetId = '1kIfGmABjh_cJxTSkCGr4R6QFTG-apJ2FAt0QARVjB5c';
+        const sheetName = 'ClassDetails';
 
-function initClient() {
-    gapi.client.init({
-        clientId: 'http://343673447773-os3mu6oc777eh0548se2litvi71hl3s2.apps.googleusercontent.com/',
-        discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
-        scope: 'https://www.googleapis.com/auth/spreadsheets',
-    }).then(() => {
-        const authInstance = gapi.auth2.getAuthInstance();
+        const url = `https://sheets.googleapis.com/v4/spreadsheets/1kIfGmABjh_cJxTSkCGr4R6QFTG-apJ2FAt0QARVjB5c/values/ClassDetails:append?valueInputOption=RAW`;
 
-        // Check if user is signed in
-        if (authInstance.isSignedIn.get()) {
-            console.log('User already signed in');
-        } else {
-            // Trigger sign-in process
-            authInstance.signIn().then(() => {
-                console.log('User signed in');
-            });
-        }
-    }).catch(error => {
-        console.error('Error initializing GAPI:', error);
+        $.ajax({
+          url: url,
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+          },
+          data: JSON.stringify({
+            values: [ 
+              [ 
+                'New Class', // Replace with actual data
+                'A', 
+                'Teacher Name', 
+                '30', 
+                'Room 101' 
+              ] 
+            ]
+          }),
+          success: function() {
+            console.log('Class added successfully!'); 
+          },
+          error: function(xhr, status, error) {
+            console.error('Error adding class:', error, xhr.responseText); 
+          }
+        });
+      }
+
+      // Handle button clicks
+      $('#add-class-btn').click(function() {
+        $('#class-form').show();
+      });
+
+      $('#cancel-btn').click(function() {
+        $('#class-form').hide();
+      });
+
+      $('#class-form-data').submit(function(event) {
+        event.preventDefault();
+
+        const classData = {
+          class: $('#class').val(),
+          division: $('#division').val(),
+          teacher: $('#teacher').val(),
+          strength: $('#strength').val(),
+          direction: $('#direction').val()
+        };
+
+        addClass(classData);
+      });
+
+      // Handle OAuth2 flow (replace with your actual implementation)
+      // 1. Obtain authorization code from Google's OAuth 2.0 endpoint
+      // 2. Exchange authorization code for access token
+      // 3. Store access token (e.g., in local storage)
+      // 4. Use access token in API requests
+
+      // Example: (Replace with your actual OAuth2 implementation)
+      let accessToken = localStorage.getItem('accessToken');
+
+      if (!accessToken) {
+        // If no access token, redirect to OAuth 2.0 consent screen
+        window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=343673447773-os3mu6oc777eh0548se2litvi71hl3s2.apps.googleusercontent.com&redirect_uri=https://jain-jipson.github.io/class-details/&scope=https://www.googleapis.com/auth/spreadsheets&response_type=code`; 
+      } else {
+        // Load existing classes
+        loadClasses();
+      }
+
+      // Handle token refresh (if necessary)
+      // ...
+
     });
-}
-
-// Call the loadGAPI function after loading the script
-window.onload = loadGAPI;
-
-    </script>
-    <script src="https://apis.google.com/js/api.js"></script>
+  </script>
 
 </body>
 </html>
