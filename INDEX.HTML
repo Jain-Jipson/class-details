@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
     <title>Class Management</title>
     <style>
         /* Base Styles */
@@ -109,8 +111,21 @@
     <div id="dashboard" class="dashboard">
         <button class="button" onclick="showClassList()">Classes</button>
         <button class="plus-button" onclick="showAddClassDetailsPage()">+</button>
+
     </div>
 
+    <div id="cspDetails" class="details" style="display: none;">
+        <h2>Content Security Policy Details</h2>
+        <pre>
+    &lt;meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' https://apis.google.com;
+        connect-src 'self' https://www.googleapis.com https://accounts.google.com;
+        img-src 'self' data: https://*.google.com;
+        frame-src https://accounts.google.com;">
+        </pre>
+    </div>
+    
     <!-- Class List Page -->
     <div id="classListPage" class="class-details">
         <h1>Class List</h1>
@@ -152,6 +167,15 @@
     </div>
 
     <script>
+        function toggleCSPDetails() {
+    const cspDetails = document.getElementById('cspDetails');
+    if (cspDetails.style.display === 'none') {
+        cspDetails.style.display = 'block'; // Show the CSP details
+    } else {
+        cspDetails.style.display = 'none'; // Hide the CSP details
+    }
+}
+
         // Navigation Functions
         function showDashboard() {
             document.getElementById('dashboard').style.display = 'flex';
